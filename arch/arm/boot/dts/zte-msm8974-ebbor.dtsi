@@ -1,0 +1,80 @@
+/* Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/include/ "dsi-panel-nt35590-cmi-5p0-720p-video-zte-300.dtsi"
+/include/ "dsi-panel-nt35590-cmi-5p0-720p-cmd-zte-301.dtsi"
+/include/ "dsi-panel-nt35590-auo-5p0-720p-video-zte-302.dtsi"
+/include/ "dsi-panel-nt35590-auo-5p0-720p-cmd-zte-303.dtsi"
+/include/ "dsi-panel-nt35590-tm-5p0-720p-video-zte-304.dtsi"
+/include/ "dsi-panel-nt35590-tm-5p0-720p-cmd-zte-305.dtsi"
+/include/ "touch-key-backlight_chovar.dtsi"
+/include/ "sii8240.dtsi"
+
+/*
+ * Added for camera sensor & eeprom by ZTE_JIA_20130917 jia.jia
+ */
+/include/ "msm8974pro-ab-camera-sensor-mtp-chovar.dtsi"
+/include/ "msm8974pro-ab-camera-eeprom-mtp-chovar.dtsi"
+
+/*bt_dm add for broadcom bt uart & power & sleep */
+/include/ "broadcom_4339_bluetooth_uart_power_sleep.dtsi"
+
+/include/ "msm8974-ext-speaker.dtsi"
+
+&soc {	
+	qcom,mdss_dsi_nt35590_cmi_5p0_720p_video_300{
+		status = "ok";
+		qcom,cont-splash-enabled;
+	};
+	qcom,mdss_dsi_nt35590_cmi_5p0_720p_cmd_301{
+		status = "ok";
+		zte,default_lcd_enabled;
+		qcom,cont-splash-enabled;
+	};
+	
+	qcom,mdss_dsi_nt35590_auo_5p0_720p_video_302{
+		status = "ok";
+		qcom,cont-splash-enabled;
+	};
+	
+	qcom,mdss_dsi_nt35590_auo_5p0_720p_cmd_303{
+		status = "ok";
+		qcom,cont-splash-enabled;
+	};
+
+	qcom,mdss_dsi_nt35590_tm_5p0_720p_video_304 {
+		status = "ok";
+		qcom,cont-splash-enabled;
+	};
+	
+	qcom,mdss_dsi_nt35590_tm_5p0_720p_cmd_305 {
+		status = "ok";
+		qcom,cont-splash-enabled;
+	};
+	
+	qcom,mdss_dsi@fd922800 {
+		qcom,platform-te-gpio = <&msmgpio 12 0>;
+	};
+
+	qcom,hdmi_tx@fd922100 {
+		status = "ok";
+	};
+
+};
+
+&uart8 {
+    status = "ok";
+};
+
+&i2c_6 {  /* jht 20130906 add for nxp nfc */
+	status = "ok";
+};

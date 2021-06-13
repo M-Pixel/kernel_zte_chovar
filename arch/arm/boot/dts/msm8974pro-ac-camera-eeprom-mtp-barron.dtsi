@@ -1,0 +1,45 @@
+/*
+ * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/*
+ * Created by ZTE_JIA_20130828, jia.jia
+ */
+
+/*
+ * Differential configuration of camera sensor
+ *
+ * See: arch/arm/boot/dts/msm8974-camera-eeprom-mtp.dtsi
+ */
+// --->
+&cci {
+	/*
+ 	 * GianTec EEPROM (GT24C16, 2K x 8bit) used by Sony imx135/imx091 13Mp sensor
+	 * Refer to power-up sequence of Sony imx135 13Mp
+ 	 */
+	eeprom0: qcom,eeprom@a0 {
+		/*
+		 * CCI configuration
+		 */
+		qcom,cci-master = <0>;
+
+		/*
+		 * VDD configuration
+		 */
+		cam_vio-supply = <&pma8084_lvs2>;
+		qcom,cam-vreg-min-voltage = <1050000 0 2850000 2850000>;
+		qcom,cam-vreg-max-voltage = <1050000 0 2850000 2850000>;
+		qcom,cam-vreg-op-mode = <105000 0 80000 80000>;
+	};
+};
+// <---
+

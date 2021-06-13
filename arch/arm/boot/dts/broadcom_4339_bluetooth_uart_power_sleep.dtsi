@@ -1,0 +1,65 @@
+/* Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more tadetails.
+ */
+
+
+
+
+
+
+&soc {	
+
+	uart8: uart@f995e000 { 
+		compatible = "qcom,msm-hsuart-v14";
+		status = "disabled";
+		reg = <0xf995e000 0x1000>,
+			<0xf9944000 0x19000>;   
+		reg-names = "core_mem", "bam_mem";
+		interrupt-names = "core_irq", "bam_irq";
+		#address-cells = <0>;
+		interrupt-parent = <&uart8>;
+		interrupts = <0 1>;
+		#interrupt-cells = <1>;
+		interrupt-map-mask = <0xffffffff>;
+		interrupt-map = <0 &intc 0 114 0
+				1 &intc 0 239 0>;
+                
+		qcom,tx-gpio = <&msmgpio 45 0x00>;
+		qcom,rx-gpio = <&msmgpio 46 0x00>;
+		qcom,cts-gpio = <&msmgpio 47 0x00>;
+		qcom,rfr-gpio = <&msmgpio 48 0x00>;
+
+		qcom,bam-tx-ep-pipe-index = <2>;
+		qcom,bam-rx-ep-pipe-index = <3>;
+		
+		qcom,msm-bus,name = "uart8";
+		qcom,msm-bus,num-cases = <2>;
+		qcom,msm-bus,active-only = <0>;
+		qcom,msm-bus,num-paths = <1>;
+		qcom,msm-bus,vectors-KBps =
+				<84 512 0 0>,
+				<84 512 500 800>; 
+	};
+
+	bcm_4339 {
+		compatible = "brcm,4339";
+		brcm,bt-reset-gpio = <&msmgpio 85 0>;
+	};
+
+/*	bcm_4339_sleep {
+		compatible = "brcm,4339_bluesleep";
+		host-wake-gpio = <&msmgpio 77 0>;
+		ext-wake-gpio = <&msmgpio 65 0>;
+		interrupt-parent = <&msmgpio>;
+		interrupts = <77 2>;
+		interrupt-names = "host_wake";
+	};*/
+};

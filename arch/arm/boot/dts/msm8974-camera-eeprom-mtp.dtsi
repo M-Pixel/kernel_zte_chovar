@@ -1,0 +1,123 @@
+/*
+ * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/*
+ * Common configuration of camera eeprom by ZTE_JIA_20130828, jia.jia
+ *
+ * See: arch/arm/boot/dts/msm8974-camera-eeprom-mtp-avon.dtsi
+ *      arch/arm/boot/dts/msm8974pro-ab-camera-eeprom-mtp-barron.dtsi
+ *      arch/arm/boot/dts/msm8974pro-ac-camera-eeprom-mtp-barron.dtsi
+ *      arch/arm/boot/dts/msm8974pro-ab-camera-eeprom-mtp-chovar.dtsi
+ */
+// --->
+&cci {
+	/*
+	 * GianTec EEPROM (GT24C16, 2K x 8bit) used by Sony imx135/imx091 13Mp sensor
+	 * Refer to power-up sequence of Sony imx135 13Mp
+	 */
+	eeprom0: qcom,eeprom@a0 {
+		compatible = "qcom,eeprom";
+		cell-index = <2>;
+		reg = <0xa0>;
+		qcom,slave-addr = <0xa0>;
+		qcom,cci-master = <0>;
+		qcom,eeprom-name = "zte_gt24c16";
+
+		/*
+		 * VDD configuration
+		 *
+		 * enum camera_vreg_type {
+		 *   REG_LDO,
+		 *   REG_VS,
+		 *   REG_GPIO,
+		 * };
+		 * Attention: 'min-voltage'/'max-voltage'/'op-mode' only required by ''REG_LDO'
+		 */
+		qcom,cam-power-seq-type = "sensor_vreg", "sensor_i2c_mux";
+		qcom,cam-power-seq-val = "cam_vio", "none";
+		qcom,cam-power-seq-cfg-val = <0 0>;
+		qcom,cam-power-seq-delay = <10 10>;  /* fix time-out bug of i2c due to 0 delay */
+		cam_vio-supply = <&pm8941_lvs2>;
+		qcom,cam-vreg-name = "cam_vdig", "cam_vio", "cam_vana", "cam_vaf";
+		qcom,cam-vreg-type = <0 1 0 0>;
+		qcom,cam-vreg-min-voltage = <1050000 0 2850000 2850000>;
+		qcom,cam-vreg-max-voltage = <1050000 0 2850000 2850000>;
+		qcom,cam-vreg-op-mode = <105000 0 80000 80000>;
+
+		/*
+		 * Refer to: kernel/arch/arm/mach-msm/include/mach/camera2.h
+		 *
+		 * struct eeprom_map_t {
+		 *   uint32_t valid_size;
+		 *   uint32_t addr;
+		 *   uint32_t addr_t;
+		 *   uint32_t data;
+		 *   uint32_t data_t;
+		 *   uint32_t delay;
+		 * };
+		 * 
+		 * struct eeprom_memory_map_t {
+		 *   struct eeprom_map_t page;
+		 *   struct eeprom_map_t pageen;
+		 *   struct eeprom_map_t poll;
+		 *   struct eeprom_map_t mem;
+		 * };
+		 *
+		 * e.g.,
+		 * qcom,pageX   = <valid_size addr addr_t data data_t delay>;
+		 * qcom,pageenX = <valid_size addr addr_t data data_t delay>;
+		 * qcom,pollX   = <valid_size addr addr_t data data_t delay>;
+		 * qcom,memX    = <valid_size addr addr_t data data_t delay>;
+		 */
+		qcom,num-blocks = <7>;
+
+		qcom,page0   = <0 0xa0 1 0x0 1 0>;
+		qcom,pageen0 = <0 0xa0 1 0x0 1 0>;
+		qcom,poll0   = <0 0xa0 1 0x0 1 0>;
+		qcom,mem0    = <24 0xa0 1 0x0 1 0>;
+
+		qcom,page1   = <0 0xa2 1 0x0 1 0>;
+		qcom,pageen1 = <0 0xa2 1 0x0 1 0>;
+		qcom,poll1   = <0 0xa2 1 0x0 1 0>;
+		qcom,mem1    = <0 0xa2 1 0x0 1 0>;
+
+		qcom,page2   = <0 0xa4 1 0x0 1 0>;
+		qcom,pageen2 = <0 0xa4 1 0x0 1 0>;
+		qcom,poll2   = <0 0xa4 1 0x0 1 0>;
+		qcom,mem2    = <255 0xa4 1 0x0 1 0>;
+
+		qcom,page3   = <0 0xa6 1 0x0 1 0>;
+		qcom,pageen3 = <0 0xa6 1 0x0 1 0>;
+		qcom,poll3   = <0 0xa6 1 0x0 1 0>;
+		qcom,mem3    = <255 0xa6 1 0x0 1 0>;
+
+		qcom,page4   = <0 0xa8 1 0x0 1 0>;
+		qcom,pageen4 = <0 0xa8 1 0x0 1 0>;
+		qcom,poll4   = <0 0xa8 1 0x0 1 0>;
+		qcom,mem4    = <255 0xa8 1 0x0 1 0>;
+
+		qcom,page5   = <0 0xaa 1 0x0 1 0>;
+		qcom,pageen5 = <0 0xaa 1 0x0 1 0>;
+		qcom,poll5   = <0 0xaa 1 0x0 1 0>;
+		qcom,mem5    = <255 0xaa 1 0x0 1 0>;
+
+		qcom,page6   = <0 0xac 1 0x0 1 0>;
+		qcom,pageen6 = <0 0xac 1 0x0 1 0>;
+		qcom,poll6   = <0 0xac 1 0x0 1 0>;
+		qcom,mem6    = <85 0xac 1 0x0 1 0>;
+
+		status = "ok";
+	};
+};
+// <---
+

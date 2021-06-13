@@ -1,0 +1,66 @@
+/* Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&soc {
+	slim_msm: slim@fe12f000 {
+		es325_codec_gen0 {
+			compatible = "adnc,es325-codec-gen0";
+			elemental-addr = [00 01 02 00 BE 02];
+
+			adnc,es325-codec-gen0 = "es325-codec-gen0";
+			adnc,es325-codec-gen0-eaddr = [00 01 02 00 BE 02];
+
+			adnc,reset-gpio  = <&msmgpio 57 0>; /* DEFINED BY CUSTOMER */
+			adnc,wakeup-gpio = <&msmgpio 58 0>; /* DEFINED BY CUSTOMER */
+			adnc,power-gpio  = <&msmgpio 28 0>;
+
+			/* chenjun:not use: adnc,es325-mclk-gpios = <&pm8941_gpios 32 0>; */ /* DEFINED BY audience */
+			es325-mclk-clk = <&pm8941_clkdiv2>;
+			adnc,es325-mclk-clk-freq = <19200000>;
+
+/* chenjun:not use:
+			es325_vdig-supply = <&pm8941_l3>;
+			adnc,es325-vreg-name = "es325_vdig";
+			adnc,es325-vreg-type = <0>;
+			adnc,es325-vreg-min-voltage = <1225000>;
+			adnc,es325-vreg-max-voltage = <1225000>;
+			adnc,es325-vreg-op-mode = <105000>;			
+*/
+		};
+
+		es325_codec_intf {
+			compatible = "adnc,es325-codec-intf";
+			elemental-addr = [00 00 02 00 BE 02];
+			
+			adnc,es325-codec-intf = "es325-codec-intf";
+			adnc,es325-codec-intf-eaddr = [00 01 02 00 BE 02];
+
+			adnc,reset-gpio  = <&msmgpio 57 0>; /* DEFINED BY CUSTOMER */
+			adnc,wakeup-gpio = <&msmgpio 58 0>; /* DEFINED BY CUSTOMER */		
+			adnc,power-gpio  = <&msmgpio 28 0>;
+
+			/* chenjun:not use: adnc,es325-mclk-gpios = <&pm8941_gpios 32 0>; */ /* DEFINED BY audience */
+			es325-mclk-clk = <&pm8941_clkdiv2>;
+			adnc,es325-mclk-clk-freq = <19200000>;
+
+/* chenjun:not use:
+			es325_vdig-supply = <&pm8941_l3>;
+			adnc,es325-vreg-name = "es325_vdig";
+			adnc,es325-vreg-type = <0>;
+			adnc,es325-vreg-min-voltage = <1225000>;
+			adnc,es325-vreg-max-voltage = <1225000>;
+			adnc,es325-vreg-op-mode = <105000>;
+*/
+		};
+	};
+};
+

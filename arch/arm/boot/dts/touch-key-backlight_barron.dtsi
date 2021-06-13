@@ -1,0 +1,67 @@
+//for touchscreen and key and keypad-backlight
+
+&soc {
+
+i2c@f9924000 {
+		syna-touchscreen@22 {
+			compatible = "synaptics,syna-ts";
+			reg = <0x22>;
+			interrupt-parent = <&msmgpio>;
+			interrupts = <61 0x2>;
+			synaptics,reset-gpio = <&msmgpio 60 0x00>;
+			synaptics,irq-gpio = <&msmgpio 61 0x00>;
+			synaptics,max_y = <0>;
+		};
+	};
+
+	gen-vkeys {
+		compatible = "qcom,gen-vkeys";
+		label = "syna-touchscreen";
+		qcom,disp-maxx = <1080>;
+		qcom,disp-maxy = <1920>;
+		qcom,panel-maxx = <1080>;
+		qcom,panel-maxy = <2200>;
+		qcom,key-codes = <158 102 139>;
+	};
+	
+	gpio_keys {
+			compatible = "gpio-keys";
+			input-name = "gpio-keys";
+
+		camera_snapshot {
+			label = "camera_snapshot";
+			gpios = <&pm8941_gpios 3 0x1>;
+			linux,input-type = <1>;
+			linux,code = <0x2fe>;
+			debounce-interval = <15>;
+		};
+
+		camera_focus {
+			label = "camera_focus";
+			gpios = <&pm8941_gpios 4 0x1>;
+			linux,input-type = <1>;
+			linux,code = <0x210>;
+			debounce-interval = <15>;
+		};
+		
+			vol_up {
+				label = "volume_up";
+				gpios = <&pm8941_gpios 5 0x1>;
+				linux,input-type = <1>;
+				linux,code = <115>;
+				debounce-interval = <15>;
+				gpio-key,wakeup = <1>;
+			};
+			/*ergate*/
+			vol_down {
+				label = "volume_down";
+				gpios = <&pm8941_gpios 2 0x1>;
+				linux,input-type = <1>;
+				linux,code = <114>;
+				debounce-interval = <15>;
+				gpio-key,wakeup = <1>;
+			};
+		};
+
+};
+

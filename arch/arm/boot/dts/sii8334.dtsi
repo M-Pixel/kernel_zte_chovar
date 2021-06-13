@@ -1,0 +1,59 @@
+&soc {
+ 
+		i2c_8: i2c@f9964000 {
+      				cell-index = <8>;
+      				compatible = "qcom,i2c-qup";
+      				reg = <0xf9964000 0x1000>;
+      				#address-cells = <1>;
+      				#size-cells = <0>;
+      				reg-names = "qup_phys_addr";
+      				interrupts = <0 102 0>;
+      				interrupt-names = "qup_err_intr";
+      				qcom,i2c-bus-freq = <400000>;
+      				qcom,i2c-src-freq = <50000000>;
+     };
+       i2c@f9964000 {
+               sii8334@39 {
+                       compatible = "sii8334_PAGE_TPI";
+                       reg = <0x39>;
+                       interrupt-parent = <&msmgpio>;
+                       interrupts = <46 0x8>;
+                       mhl-intr-gpio = <&msmgpio 46 0>;
+                       mhl-rst-gpio = <&msmgpio 45 0>;
+                       avcc_18-supply = <&pm8941_s3>;
+                       avcc_12-supply = <&pm8941_l2>;
+                       qcom,hdmi-tx-map = <&mdss_hdmi_tx>;
+               };
+               sii8334@3d {
+                       compatible = "sii8334_PAGE_TX_L1";
+                       reg = <0x3d>;
+               };
+               sii8334@49 {
+                       compatible = "sii8334_PAGE_TX_2";
+                       reg = <0x49>;
+               };
+               sii8334@4d {
+                       compatible = "sii8334_PAGE_TX_3";
+                       reg = <0x4d>;
+               };
+               sii8334@64 {
+                       compatible = "sii8334_PAGE_CBUS";
+                       reg = <0x64>;
+               };
+       };
+/*      
+    i2c@f9964000 {
+			sii8334@72 {
+				compatible = "qcom,mhl-sii8334";
+				reg = <0x72>;
+				interrupt-parent = <&msmgpio>;
+				interrupts = <46 0x8>;
+				mhl-intr-gpio = <&msmgpio 46 0>;
+				mhl-rst-gpio = <&msmgpio 45 0>;
+				avcc_18-supply = <&pm8941_s3>;
+				avcc_12-supply = <&pm8941_l2>;
+				qcom,hdmi-tx-map = <&mdss_hdmi_tx>;
+			};
+		};
+*/		
+};

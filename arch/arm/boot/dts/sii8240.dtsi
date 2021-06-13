@@ -1,0 +1,33 @@
+&soc {
+
+	i2c_0: i2c@f9967000 { /* BLSP#11 */
+		cell-index = <0>;
+		compatible = "qcom,i2c-qup";
+		reg = <0Xf9967000 0x1000>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		reg-names = "qup_phys_addr";
+		interrupts = <0 105 0>;
+		interrupt-names = "qup_err_intr";
+		qcom,i2c-bus-freq = <400000>;
+		qcom,i2c-src-freq = <50000000>;
+		qcom,master-id = <84>;
+	};
+
+	i2c@f9967000 {
+		sii8240@72 {
+			compatible = "qcom,mhl-sii8240";
+			status = "okay";
+			reg = <0x72>;
+			interrupt-parent = <&msmgpio>;
+			interrupts = <68 0x8>;
+			mhl-intr-gpio = <&msmgpio 68 0>;
+			mhl-rst-gpio = <&msmgpio 86 0>;
+			mhl-ldo-gpio = <&msmgpio 57 1>;
+			avcc_12-supply = <&pm8941_l2>;
+			avcc_18-supply = <&pm8941_s3>;
+			qcom,hdmi-tx-map = <&mdss_hdmi_tx>;
+		};
+	};
+		
+};
